@@ -527,6 +527,15 @@ function cwcp_render_candidate_detail($user_id) {
 
             <div class="cwcp-admin-box cwcp-admin-side">
 
+                <?php $photo_url = cwcp_get_photo_url($user_id, 'medium'); ?>
+
+                <?php if ($photo_url) : ?>
+                    <p style="text-align:center;">
+                        <img src="<?php echo esc_url($photo_url); ?>" alt=""
+                             style="width:120px;height:120px;object-fit:cover;border-radius:50%;border:1px solid #dcdcde;" />
+                    </p>
+                <?php endif; ?>
+
                 <h2>Resume</h2>
 
                 <?php if ($resume_id && get_post($resume_id)) : ?>

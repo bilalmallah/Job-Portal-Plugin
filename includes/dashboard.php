@@ -33,11 +33,15 @@ function cwcp_dashboard_shortcode() {
 
     $latest_jobs = cwcp_query_jobs(array('per_page' => 4));
 
+    $extra_items = array('resume', 'education', 'experience');
+
     $checklist = array(
-        'Profile details' => $completeness['is_complete'] || !array_diff($completeness['missing'], array('resume')),
-        'Resume uploaded' => !in_array('resume', $completeness['missing'], true),
-        'Education added' => (bool) cwcp_get_education($user_id),
-        'Experience or skills added' => (bool) cwcp_get_experience($user_id) || (bool) cwcp_get_skills($user_id),
+        'Personal details'         => !array_diff($completeness['missing'], $extra_items),
+        'Education added'          => !in_array('education', $completeness['missing'], true),
+        'Work experience answered' => !in_array('experience', $completeness['missing'], true),
+        'Resume uploaded'          => !in_array('resume', $completeness['missing'], true),
+        'Skills added (optional)'  => (bool) cwcp_get_skills($user_id),
+        'Profile photo (optional)' => (bool) cwcp_get_photo_id($user_id),
     );
 
     ob_start();

@@ -294,6 +294,44 @@
     }
 
 
+    /* ---------------------------------------------------------
+       Unsaved changes guard
+
+       Long forms such as the profile lose everything if a link is
+       clicked before saving, so leaving with pending edits asks first.
+       --------------------------------------------------------- */
+
+    function initDirtyGuard() {
+
+        var form = document.querySelector('[data-cwcp-dirty-guard]');
+
+        if (!form) {
+            return;
+        }
+
+        var dirty = false;
+
+        form.addEventListener('input', function () { dirty = true; });
+        form.addEventListener('change', function () { dirty = true; });
+
+        form.addEventListener('submit', function () { dirty = false; });
+
+        window.addEventListener('beforeunload', function (event) {
+
+            if (!dirty) {
+                return undefined;
+            }
+
+            event.preventDefault();
+
+            /* Browsers show their own wording; a value is still required. */
+            event.returnValue = '';
+
+            return '';
+        });
+    }
+
+
     ready(function () {
 
         initPasswordToggles();
@@ -302,6 +340,7 @@
         initApply();
         initSaveToggles();
         initMasks();
+        initDirtyGuard();
     });
 
 }());

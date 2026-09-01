@@ -32,9 +32,14 @@ The full list with links is in *Care Wave → Overview*.
    candidate lands on the profile page.
 2. **Complete the account** — required before applying:
    Full Name, Father Name, Email, Mobile, CNIC, Date of Birth, Gender, Religion,
-   Marital Status, Province, District, Address **and an uploaded Resume**.
-   Current Position, Current Organization, Expected Salary, LinkedIn and
-   Career Objective are optional.
+   Marital Status, Province, District, Address, **an uploaded Resume, at least
+   one Education record and an answered work history**. A candidate with no work
+   history yet ticks *"I am a fresh candidate"* on the Experience screen, so
+   fresh graduates can still reach 100%.
+   Current Position, Current Organization, Expected Salary, LinkedIn, Career
+   Objective, Skills and the profile photo are optional.
+   A **profile photo** can be uploaded on the profile screen; it becomes the
+   candidate's avatar across the portal and the admin screens.
 3. **Add Education / Experience / Skills** — optional but shown to the hiring team.
 4. **Browse Jobs → Easy Apply** — one click. The candidate's profile, education,
    experience, skills and resume are attached automatically; no forms to fill.
@@ -48,6 +53,10 @@ The full list with links is in *Care Wave → Overview*.
 Everything a candidate enters stays editable: the profile form saves in place,
 education and experience rows have edit and delete actions, skills can be
 re-added to change their level, and the resume can be replaced or removed.
+
+Nothing typed is lost on the way: the resume button on the profile screen
+**saves the form first and then opens the resume screen**, and leaving any long
+form with unsaved edits asks for confirmation first.
 
 The completeness percentage is shown in the sidebar of every portal screen.
 

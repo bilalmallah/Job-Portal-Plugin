@@ -240,8 +240,9 @@ function cwcp_get_profile($user_id) {
 | Completeness
 |--------------------------------------------------------------------------
 |
-| An account is complete when every required profile field is filled in and
-| a resume has been uploaded. Only complete accounts can apply for jobs.
+| An account is complete when every required profile field is filled in, a
+| resume is uploaded, at least one education record exists and the work
+| history is answered. Only complete accounts can apply for jobs.
 |
 */
 
@@ -272,7 +273,12 @@ function cwcp_profile_completeness($user_id) {
         }
     }
 
-    /* The resume counts as one required item. */
+    /*
+     * Beyond the profile fields an account also needs a resume, at least one
+     * education record and a work history. A candidate with no work history
+     * completes that item by ticking "no experience yet" on the experience
+     * screen, so fresh graduates can still reach 100%.
+     */
 
     $total++;
 
@@ -286,6 +292,30 @@ function cwcp_profile_completeness($user_id) {
 
         $missing[]        = 'resume';
         $missing_labels[] = 'Resume';
+    }
+
+    $total++;
+
+    if (cwcp_get_education($user_id)) {
+
+        $filled++;
+
+    } else {
+
+        $missing[]        = 'education';
+        $missing_labels[] = 'Education';
+    }
+
+    $total++;
+
+    if (cwcp_get_experience($user_id) || get_user_meta($user_id, 'cwcp_no_experience', true)) {
+
+        $filled++;
+
+    } else {
+
+        $missing[]        = 'experience';
+        $missing_labels[] = 'Work experience';
     }
 
     $percent = $total ? (int) round(($filled / $total) * 100) : 0;
@@ -512,6 +542,45 @@ function cwcp_handle_profile_save() {
 
     cwcp_save_profile_values($user_id, $values);
 
+    /*
+     * Profile photo. Handled after the field save so a rejected image never
+     * costs the candidate the rest of the form.
+     */
+
+    if (!empty($_POST['remove_photo'])) {
+
+        cwcp_delete_photo($user_id);
+
+        cwcp_add_notice('Profile photo removed.', 'info');
+    }
+
+    if (!empty($_FILES['profile_photo']['name'])) {
+
+        $photo_id = cwcp_store_photo('profile_photo', $user_id);
+
+        if (is_wp_error($photo_id)) {
+
+            cwcp_add_notice($photo_id->get_error_message(), 'error');
+
+        } else {
+
+            $previous = cwcp_get_photo_id($user_id);
+
+            if ($previous && $previous !== $photo_id) {
+                cwcp_delete_photo($user_id);
+            }
+
+            update_user_meta($user_id, 'cwcp_photo_id', $photo_id);
+        }
+    }
+
+    /*
+     * "Save and manage resume" keeps the candidate moving without losing the
+     * form they just filled in.
+     */
+
+    $after_save = isset($_POST['cwcp_after_save']) ? sanitize_key(wp_unslash($_POST['cwcp_after_save'])) : '';
+
     $completeness = cwcp_profile_completeness($user_id);
 
     if ($completeness['is_complete']) {
@@ -524,6 +593,10 @@ function cwcp_handle_profile_save() {
             'Profile saved. Still missing: ' . esc_html(implode(', ', $completeness['missing_labels'])) . '.',
             'warning'
         );
+    }
+
+    if ('resume' === $after_save) {
+        cwcp_redirect(cwcp_resume_url());
     }
 
     cwcp_redirect(cwcp_profile_url());
@@ -583,7 +656,7 @@ function cwcp_profile_shortcode() {
         </div>
     <?php endif; ?>
 
-    <form method="post" class="cwcp-form">
+    <form method="post" class="cwcp-form" enctype="multipart/form-data" data-cwcp-dirty-guard="1">
 
         <?php wp_nonce_field('cwcp_save_profile', 'cwcp_profile_nonce'); ?>
         <input type="hidden" name="cwcp_action" value="save_profile" />
@@ -677,6 +750,52 @@ function cwcp_profile_shortcode() {
         <div class="cwcp-card cwcp-pad cwcp-mb-25">
 
             <div class="cwcp-section-header">
+                <span class="cwcp-section-header-icon"><i class="fa-solid fa-camera"></i></span>
+                <h2>Profile Photo</h2>
+            </div>
+
+            <?php $photo_url = cwcp_get_photo_url($user_id, 'medium'); ?>
+
+            <div class="cwcp-photo-row">
+
+                <div class="cwcp-photo-preview">
+                    <?php if ($photo_url) : ?>
+                        <img src="<?php echo esc_url($photo_url); ?>" alt="" />
+                    <?php else : ?>
+                        <i class="fa-solid fa-user"></i>
+                    <?php endif; ?>
+                </div>
+
+                <div class="cwcp-photo-fields">
+
+                    <div class="cwcp-form-group">
+                        <label class="cwcp-form-label" for="cwcp-profile-photo">
+                            <?php echo $photo_url ? 'Replace photo' : 'Upload a photo'; ?>
+                        </label>
+                        <input class="cwcp-form-input" type="file" id="cwcp-profile-photo"
+                               name="profile_photo" accept="image/jpeg,image/png,image/webp,image/gif" />
+                        <small class="cwcp-help">
+                            JPG, PNG, WEBP or GIF. Maximum <?php echo esc_html(cwcp_photo_max_mb()); ?> MB.
+                            A clear head and shoulders photo works best.
+                        </small>
+                    </div>
+
+                    <?php if ($photo_url) : ?>
+                        <label class="cwcp-inline-check">
+                            <input type="checkbox" name="remove_photo" value="1" />
+                            Remove my current photo
+                        </label>
+                    <?php endif; ?>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="cwcp-card cwcp-pad cwcp-mb-25">
+
+            <div class="cwcp-section-header">
                 <span class="cwcp-section-header-icon"><i class="fa-solid fa-file-arrow-up"></i></span>
                 <h2>Resume</h2>
             </div>
@@ -696,9 +815,14 @@ function cwcp_profile_shortcode() {
                 <p class="cwcp-text-muted">No resume uploaded yet. A resume is required before you can apply.</p>
             <?php endif; ?>
 
-            <a class="cwcp-btn-secondary" href="<?php echo esc_url(cwcp_resume_url()); ?>">
-                <i class="fa-solid fa-upload"></i> Manage Resume
-            </a>
+            <button type="submit" class="cwcp-btn-secondary" name="cwcp_after_save" value="resume">
+                <i class="fa-solid fa-upload"></i>
+                <?php echo $resume_id ? 'Save &amp; Manage Resume' : 'Save &amp; Upload Resume'; ?>
+            </button>
+
+            <small class="cwcp-help">
+                Your profile is saved before the resume screen opens, so nothing you typed is lost.
+            </small>
         </div>
 
         <div class="cwcp-form-actions">

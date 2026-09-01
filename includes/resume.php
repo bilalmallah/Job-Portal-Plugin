@@ -126,6 +126,180 @@ function cwcp_store_document($field, $user_id = 0) {
 
 /*
 |--------------------------------------------------------------------------
+| Profile Photo
+|--------------------------------------------------------------------------
+|
+| Unlike resumes, a profile photo has to be publicly readable, so it goes to
+| the normal uploads folder rather than the protected documents folder.
+|
+*/
+
+function cwcp_allowed_photo_mimes() {
+
+    return array(
+        'jpg|jpeg|jpe' => 'image/jpeg',
+        'png'          => 'image/png',
+        'webp'         => 'image/webp',
+        'gif'          => 'image/gif',
+    );
+}
+
+function cwcp_photo_max_mb() {
+
+    return 2;
+}
+
+/**
+ * Validates and stores an uploaded profile photo.
+ *
+ * @return int|WP_Error Attachment ID.
+ */
+function cwcp_store_photo($field, $user_id) {
+
+    if (empty($_FILES[$field]) || !isset($_FILES[$field]['name']) || '' === $_FILES[$field]['name']) {
+        return new WP_Error('cwcp_no_file', 'Please choose an image to upload.');
+    }
+
+    $file = $_FILES[$field]; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+
+    if (!empty($file['error'])) {
+        return new WP_Error('cwcp_upload_error', 'The photo could not be uploaded. Please try again.');
+    }
+
+    $max = cwcp_photo_max_mb();
+
+    if ((int) $file['size'] > $max * 1024 * 1024) {
+        return new WP_Error('cwcp_too_big', 'The photo is too large. Maximum allowed size is ' . $max . ' MB.');
+    }
+
+    $allowed = cwcp_allowed_photo_mimes();
+
+    $check = wp_check_filetype_and_ext($file['tmp_name'], $file['name'], $allowed);
+
+    if (empty($check['ext']) || empty($check['type']) || !in_array($check['type'], $allowed, true)) {
+        return new WP_Error('cwcp_bad_type', 'Only JPG, PNG, WEBP and GIF images are allowed.');
+    }
+
+    require_once ABSPATH . 'wp-admin/includes/file.php';
+    require_once ABSPATH . 'wp-admin/includes/image.php';
+    require_once ABSPATH . 'wp-admin/includes/media.php';
+
+    $uploaded = wp_handle_upload($file, array('test_form' => false, 'mimes' => $allowed));
+
+    if (isset($uploaded['error'])) {
+        return new WP_Error('cwcp_upload_failed', $uploaded['error']);
+    }
+
+    $attachment_id = wp_insert_attachment(
+        array(
+            'post_mime_type' => $uploaded['type'],
+            'post_title'     => sanitize_file_name(basename($uploaded['file'])),
+            'post_content'   => '',
+            'post_status'    => 'inherit',
+            'post_author'    => $user_id ? $user_id : 0,
+        ),
+        $uploaded['file']
+    );
+
+    if (is_wp_error($attachment_id) || !$attachment_id) {
+        return new WP_Error('cwcp_attach_failed', 'The photo could not be saved. Please try again.');
+    }
+
+    wp_update_attachment_metadata(
+        $attachment_id,
+        wp_generate_attachment_metadata($attachment_id, $uploaded['file'])
+    );
+
+    update_post_meta($attachment_id, '_cwcp_photo', 1);
+    update_post_meta($attachment_id, '_cwcp_owner', $user_id);
+
+    return (int) $attachment_id;
+}
+
+function cwcp_get_photo_id($user_id) {
+
+    $id = (int) get_user_meta($user_id, 'cwcp_photo_id', true);
+
+    return ($id && get_post($id)) ? $id : 0;
+}
+
+function cwcp_get_photo_url($user_id, $size = 'thumbnail') {
+
+    $id = cwcp_get_photo_id($user_id);
+
+    if (!$id) {
+        return '';
+    }
+
+    $url = wp_get_attachment_image_url($id, $size);
+
+    return $url ? $url : '';
+}
+
+function cwcp_delete_photo($user_id) {
+
+    $id = cwcp_get_photo_id($user_id);
+
+    if ($id && (int) get_post_meta($id, '_cwcp_owner', true) === (int) $user_id) {
+        wp_delete_attachment($id, true);
+    }
+
+    delete_user_meta($user_id, 'cwcp_photo_id');
+}
+
+/**
+ * The uploaded photo becomes the user's avatar everywhere WordPress asks for
+ * one - the portal sidebar, the admin candidate screens, comments.
+ */
+function cwcp_filter_avatar_data($args, $id_or_email) {
+
+    $user_id = 0;
+
+    if (is_numeric($id_or_email)) {
+
+        $user_id = (int) $id_or_email;
+
+    } elseif ($id_or_email instanceof WP_User) {
+
+        $user_id = (int) $id_or_email->ID;
+
+    } elseif ($id_or_email instanceof WP_Post) {
+
+        $user_id = (int) $id_or_email->post_author;
+
+    } elseif ($id_or_email instanceof WP_Comment) {
+
+        $user_id = (int) $id_or_email->user_id;
+
+    } elseif (is_string($id_or_email) && is_email($id_or_email)) {
+
+        $user = get_user_by('email', $id_or_email);
+
+        $user_id = $user ? (int) $user->ID : 0;
+    }
+
+    if (!$user_id) {
+        return $args;
+    }
+
+    $size = isset($args['size']) ? (int) $args['size'] : 96;
+
+    $url = cwcp_get_photo_url($user_id, $size > 150 ? 'medium' : 'thumbnail');
+
+    if ($url) {
+
+        $args['url']          = $url;
+        $args['found_avatar'] = true;
+    }
+
+    return $args;
+}
+
+add_filter('pre_get_avatar_data', 'cwcp_filter_avatar_data', 10, 2);
+
+
+/*
+|--------------------------------------------------------------------------
 | Secure Document Delivery
 |--------------------------------------------------------------------------
 |

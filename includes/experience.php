@@ -117,7 +117,7 @@ function cwcp_handle_experience_actions() {
 
     $action = sanitize_key(wp_unslash($_REQUEST['cwcp_action']));
 
-    if (!in_array($action, array('save_experience', 'delete_experience'), true)) {
+    if (!in_array($action, array('save_experience', 'delete_experience', 'set_no_experience'), true)) {
         return;
     }
 
@@ -130,6 +130,37 @@ function cwcp_handle_experience_actions() {
     global $wpdb;
 
     $table = cwcp_table('experience');
+
+    /*
+     * Fresh candidates answer the work history question instead of adding a
+     * record, so their account can still reach 100%.
+     */
+
+    if ('set_no_experience' === $action) {
+
+        if (
+            !isset($_POST['cwcp_no_experience_nonce']) ||
+            !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['cwcp_no_experience_nonce'])), 'cwcp_no_experience')
+        ) {
+            cwcp_add_notice('Security check failed.', 'error');
+            cwcp_redirect(cwcp_experience_url());
+        }
+
+        if (!empty($_POST['no_experience'])) {
+
+            update_user_meta($user_id, 'cwcp_no_experience', 1);
+
+            cwcp_add_notice('Saved. You are listed as a fresh candidate with no work experience yet.', 'success');
+
+        } else {
+
+            delete_user_meta($user_id, 'cwcp_no_experience');
+
+            cwcp_add_notice('Updated. Please add your work experience below.', 'info');
+        }
+
+        cwcp_redirect(cwcp_experience_url());
+    }
 
     if ('delete_experience' === $action) {
 
@@ -223,6 +254,8 @@ function cwcp_handle_experience_actions() {
 
         $wpdb->insert($table, $data);
 
+        delete_user_meta($user_id, 'cwcp_no_experience');
+
         cwcp_add_notice('Experience record added.', 'success');
     }
 
@@ -264,6 +297,44 @@ function cwcp_experience_shortcode() {
         'Total experience: ' . cwcp_format_experience(cwcp_total_experience_months($user_id))
     );
     ?>
+
+    <?php $no_experience = (bool) get_user_meta($user_id, 'cwcp_no_experience', true); ?>
+
+    <?php if (empty($records)) : ?>
+
+        <div class="cwcp-card cwcp-pad cwcp-mb-25">
+
+            <div class="cwcp-section-header">
+                <span class="cwcp-section-header-icon"><i class="fa-solid fa-seedling"></i></span>
+                <h2>No work experience yet?</h2>
+            </div>
+
+            <p class="cwcp-text-muted">
+                Fresh graduates can tick this instead of adding a record. Your account still counts as
+                complete, and you can add experience later at any time.
+            </p>
+
+            <form method="post" class="cwcp-form">
+
+                <?php wp_nonce_field('cwcp_no_experience', 'cwcp_no_experience_nonce'); ?>
+                <input type="hidden" name="cwcp_action" value="set_no_experience" />
+
+                <label class="cwcp-inline-check">
+                    <input type="checkbox" name="no_experience" value="1" <?php checked(true, $no_experience); ?> />
+                    I am a fresh candidate and have no work experience yet
+                </label>
+
+                <div class="cwcp-form-actions">
+                    <button type="submit" class="cwcp-btn-secondary">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Answer
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    <?php endif; ?>
 
     <div class="cwcp-card cwcp-pad cwcp-mb-25">
 
