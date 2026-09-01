@@ -138,6 +138,31 @@ are appended to the content automatically.
 
 ---
 
+## Working with your theme
+
+The portal renders inside whatever the active theme outputs, so a few
+precautions keep the two from fighting:
+
+* **All portal markup is scoped.** Every screen is wrapped in `.cwcp-page` or
+  `.cwcp-scope`, and `assets/css/portal.css` opens with a theme isolation layer
+  that resets typography, form controls and tables inside those wrappers. It is
+  written with `:where()`, so it overrides a theme's inherited and element level
+  styles while the portal's own component styles still win. Nothing outside the
+  wrappers is touched.
+* **Portal styles load after the theme** (`wp_enqueue_scripts`, priority 100),
+  because otherwise a theme stylesheet printed later would win every equal
+  specificity match.
+* **Layout classes never go on `<body>`.** Single job and tender pages get an
+  identifying `cwcp-single-job-page` body class only.
+* Wrappers carry `alignwide`, so block themes such as Twenty Twenty-Five do not
+  squeeze the portal into the narrow content column.
+
+Single job pages are rendered by your theme; the plugin appends a two column
+layout - description on the left, job summary and the apply panel in a sticky
+rail on the right - which stacks on tablets and phones.
+
+---
+
 ## Security notes
 
 * Every form is nonce protected, sanitized on input and escaped on output; all

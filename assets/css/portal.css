@@ -1271,6 +1271,84 @@
     font-size: 26px;
 }
 
+.cwcp-job-layout {
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) 340px;
+
+    gap: 24px;
+
+    align-items: start;
+}
+
+.cwcp-job-main {
+
+    min-width: 0;
+}
+
+.cwcp-job-aside {
+
+    position: sticky;
+
+    top: 24px;
+
+    min-width: 0;
+}
+
+.cwcp-job-aside .cwcp-card:last-child {
+
+    margin-bottom: 0;
+}
+
+.cwcp-job-hero {
+
+    margin-bottom: 22px;
+}
+
+.cwcp-detail-list {
+
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+}
+
+.cwcp-detail-list li {
+
+    display: flex;
+
+    align-items: baseline;
+
+    justify-content: space-between;
+
+    gap: 14px;
+
+    margin: 0;
+
+    padding: 10px 0;
+
+    border-bottom: 1px dashed var(--cwcp-border);
+}
+
+.cwcp-detail-list li:last-child {
+
+    border-bottom: 0;
+
+    padding-bottom: 0;
+}
+
+.cwcp-detail-list .cwcp-detail-label {
+
+    flex: 0 0 auto;
+}
+
+.cwcp-detail-list .cwcp-detail-value {
+
+    text-align: right;
+}
+
 .cwcp-detail-grid {
 
     display: grid;
@@ -1774,6 +1852,16 @@
    ========================================================= */
 
 @media (max-width: 1024px) {
+
+    .cwcp-job-layout {
+
+        grid-template-columns: 1fr;
+    }
+
+    .cwcp-job-aside {
+
+        position: static;
+    }
 
     .cwcp-portal-grid {
 

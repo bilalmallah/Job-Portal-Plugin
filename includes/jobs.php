@@ -425,6 +425,8 @@ function cwcp_render_single_job($job_id, $wrap = false) {
         return '';
     }
 
+    $is_open = cwcp_job_is_open($job_id);
+
     ob_start();
 
     if ($wrap) {
@@ -435,27 +437,37 @@ function cwcp_render_single_job($job_id, $wrap = false) {
     <div class="cwcp-single-job">
 
         <?php if ($wrap) : ?>
+
             <a class="cwcp-back-link" href="<?php echo esc_url(cwcp_jobs_url()); ?>">
                 <i class="fa-solid fa-arrow-left"></i> Back to all jobs
             </a>
-            <h1 class="cwcp-single-job-title"><?php echo esc_html($job->post_title); ?></h1>
-        <?php endif; ?>
 
-        <?php echo cwcp_job_details_table($job_id); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+            <div class="cwcp-job-hero">
 
-        <?php if ($wrap) : ?>
-            <div class="cwcp-card cwcp-pad cwcp-mb-25">
-                <div class="cwcp-section-header">
-                    <span class="cwcp-section-header-icon"><i class="fa-solid fa-file-lines"></i></span>
-                    <h2>Job Description</h2>
+                <h1 class="cwcp-single-job-title"><?php echo esc_html($job->post_title); ?></h1>
+
+                <div class="cwcp-job-tags">
+                    <?php $type = cwcp_job_terms_list($job_id, 'cw_job_type'); ?>
+                    <?php $category = cwcp_job_terms_list($job_id, 'cw_job_category'); ?>
+
+                    <?php if ($type) : ?>
+                        <span class="cwcp-badge cwcp-badge-primary"><i class="fa-solid fa-clock"></i> <?php echo esc_html($type); ?></span>
+                    <?php endif; ?>
+
+                    <?php if ($category) : ?>
+                        <span class="cwcp-badge cwcp-badge-neutral"><i class="fa-solid fa-folder"></i> <?php echo esc_html($category); ?></span>
+                    <?php endif; ?>
+
+                    <span class="cwcp-badge <?php echo $is_open ? 'cwcp-badge-success' : 'cwcp-badge-danger'; ?>">
+                        <?php echo $is_open ? 'Open' : 'Closed'; ?>
+                    </span>
                 </div>
-                <div class="cwcp-job-description">
-                    <?php echo wp_kses_post(wpautop($job->post_content)); ?>
-                </div>
+
             </div>
+
         <?php endif; ?>
 
-        <?php echo cwcp_job_apply_box($job_id); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+        <?php echo cwcp_job_layout($job_id, wp_kses_post(wpautop($job->post_content))); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 
     </div>
     <?php
@@ -467,7 +479,7 @@ function cwcp_render_single_job($job_id, $wrap = false) {
     return ob_get_clean();
 }
 
-function cwcp_job_details_table($job_id) {
+function cwcp_job_details_table($job_id, $style = 'grid') {
 
     $rows = array(
         'Job Type'         => cwcp_job_terms_list($job_id, 'cw_job_type'),
@@ -499,14 +511,69 @@ function cwcp_job_details_table($job_id) {
             <h2>Job Summary</h2>
         </div>
 
-        <div class="cwcp-detail-grid">
-            <?php foreach ($rows as $label => $value) : ?>
-                <div class="cwcp-detail-item">
-                    <span class="cwcp-detail-label"><?php echo esc_html($label); ?></span>
-                    <span class="cwcp-detail-value"><?php echo esc_html($value); ?></span>
+        <?php if ('list' === $style) : ?>
+
+            <ul class="cwcp-detail-list">
+                <?php foreach ($rows as $label => $value) : ?>
+                    <li>
+                        <span class="cwcp-detail-label"><?php echo esc_html($label); ?></span>
+                        <span class="cwcp-detail-value"><?php echo esc_html($value); ?></span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+
+        <?php else : ?>
+
+            <div class="cwcp-detail-grid">
+                <?php foreach ($rows as $label => $value) : ?>
+                    <div class="cwcp-detail-item">
+                        <span class="cwcp-detail-label"><?php echo esc_html($label); ?></span>
+                        <span class="cwcp-detail-value"><?php echo esc_html($value); ?></span>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+    <?php
+
+    return ob_get_clean();
+}
+
+/**
+ * The two column job layout: description on the left, summary and the apply
+ * panel in a rail that follows the reader down the page.
+ */
+function cwcp_job_layout($job_id, $description_html) {
+
+    $summary = cwcp_job_details_table($job_id, 'list');
+
+    ob_start();
+    ?>
+    <div class="cwcp-job-layout">
+
+        <div class="cwcp-job-main">
+
+            <div class="cwcp-card cwcp-pad">
+
+                <div class="cwcp-section-header">
+                    <span class="cwcp-section-header-icon"><i class="fa-solid fa-file-lines"></i></span>
+                    <h2>Job Description</h2>
                 </div>
-            <?php endforeach; ?>
+
+                <div class="cwcp-job-description">
+                    <?php echo $description_html; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                </div>
+
+            </div>
+
         </div>
+
+        <aside class="cwcp-job-aside">
+            <?php echo $summary; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+            <?php echo cwcp_job_apply_box($job_id); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+        </aside>
 
     </div>
     <?php
@@ -639,9 +706,7 @@ function cwcp_single_job_content($content) {
       */
 
     return '<div class="cwcp-scope cwcp-single-job alignwide">'
-        . cwcp_job_details_table($job_id)
-        . '<div class="cwcp-job-description">' . $content . '</div>'
-        . cwcp_job_apply_box($job_id)
+        . cwcp_job_layout($job_id, $content)
         . '</div>';
 }
 

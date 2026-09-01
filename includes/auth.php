@@ -406,7 +406,7 @@ function cwcp_registration_shortcode() {
 
     if (is_user_logged_in()) {
 
-        return '<div class="cwcp-page cwcp-auth-page"><div class="cwcp-container">'
+        return '<div class="cwcp-page cwcp-scope cwcp-auth-page alignwide"><div class="cwcp-container">'
             . '<div class="cwcp-card cwcp-auth-card cwcp-pad">'
             . '<div class="cwcp-empty"><div class="cwcp-empty-icon"><i class="fa-solid fa-circle-check"></i></div>'
             . '<h3>You are already logged in</h3>'
@@ -430,7 +430,7 @@ function cwcp_registration_shortcode() {
 
     ob_start();
     ?>
-    <div class="cwcp-page cwcp-auth-page">
+    <div class="cwcp-page cwcp-scope cwcp-auth-page alignwide">
         <div class="cwcp-container cwcp-container-narrow">
 
             <div class="cwcp-auth-head">
@@ -539,7 +539,7 @@ function cwcp_login_shortcode() {
 
         $user = wp_get_current_user();
 
-        return '<div class="cwcp-page cwcp-auth-page"><div class="cwcp-container cwcp-container-narrow">'
+        return '<div class="cwcp-page cwcp-scope cwcp-auth-page alignwide"><div class="cwcp-container cwcp-container-narrow">'
             . '<div class="cwcp-card cwcp-pad">'
             . '<div class="cwcp-empty"><div class="cwcp-empty-icon"><i class="fa-solid fa-user-check"></i></div>'
             . '<h3>You are logged in as ' . esc_html($user->display_name) . '</h3>'
@@ -553,7 +553,7 @@ function cwcp_login_shortcode() {
 
     ob_start();
     ?>
-    <div class="cwcp-page cwcp-auth-page">
+    <div class="cwcp-page cwcp-scope cwcp-auth-page alignwide">
         <div class="cwcp-container cwcp-container-narrow">
 
             <div class="cwcp-auth-head">
@@ -625,7 +625,7 @@ function cwcp_lost_password_shortcode() {
 
     ob_start();
     ?>
-    <div class="cwcp-page cwcp-auth-page">
+    <div class="cwcp-page cwcp-scope cwcp-auth-page alignwide">
         <div class="cwcp-container cwcp-container-narrow">
 
             <div class="cwcp-auth-head">
@@ -682,7 +682,7 @@ function cwcp_reset_password_shortcode() {
 
     ob_start();
 
-    echo '<div class="cwcp-page cwcp-auth-page"><div class="cwcp-container cwcp-container-narrow">';
+    echo '<div class="cwcp-page cwcp-scope cwcp-auth-page alignwide"><div class="cwcp-container cwcp-container-narrow">';
 
     echo '<div class="cwcp-auth-head">'
         . '<div class="cwcp-icon-box"><i class="fa-solid fa-lock"></i></div>'
@@ -820,7 +820,7 @@ function cwcp_require_login_notice() {
         cwcp_login_url()
     );
 
-    return '<div class="cwcp-page"><div class="cwcp-container cwcp-container-narrow">'
+    return '<div class="cwcp-page cwcp-scope alignwide"><div class="cwcp-container cwcp-container-narrow">'
         . '<div class="cwcp-card cwcp-pad"><div class="cwcp-empty">'
         . '<div class="cwcp-empty-icon"><i class="fa-solid fa-lock"></i></div>'
         . '<h3>Please log in to continue</h3>'

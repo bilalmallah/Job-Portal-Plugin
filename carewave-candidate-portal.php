@@ -157,7 +157,13 @@ function cwcp_enqueue_assets() {
     }
 }
 
-add_action('wp_enqueue_scripts', 'cwcp_enqueue_assets');
+/*
+ * Priority 100: themes enqueue at the default priority, and a plugin's hooks
+ * are registered first, so without this the theme's stylesheet would print
+ * after the portal's and win every equal specificity match.
+ */
+
+add_action('wp_enqueue_scripts', 'cwcp_enqueue_assets', 100);
 
 
 /*

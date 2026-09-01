@@ -347,7 +347,7 @@ function cwcp_enqueue_color_variables() {
     }
 }
 
-add_action('wp_enqueue_scripts', 'cwcp_enqueue_color_variables', 20);
+add_action('wp_enqueue_scripts', 'cwcp_enqueue_color_variables', 110);
 
 /**
  * The plugin's own admin screens follow the same palette.
