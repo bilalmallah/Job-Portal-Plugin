@@ -1,0 +1,1213 @@
+/* =========================================================
+   CARE WAVE CANDIDATE PORTAL
+   GLOBAL CSS
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL VARIABLES
+   ========================================================= */
+
+:root {
+    --cwcp-primary: #1d4ed8;
+    --cwcp-primary-dark: #1e40af;
+    --cwcp-primary-light: #eef3ff;
+
+    --cwcp-success: #16a34a;
+    --cwcp-success-light: #ecfdf3;
+
+    --cwcp-danger: #dc2626;
+    --cwcp-danger-light: #fef2f2;
+
+    --cwcp-warning: #ea8b19;
+    --cwcp-warning-light: #fff5e8;
+
+    --cwcp-text: #172033;
+    --cwcp-text-dark: #252c3d;
+    --cwcp-text-muted: #7b8495;
+    --cwcp-text-light: #9299a8;
+
+    --cwcp-border: #e6e9ef;
+    --cwcp-border-light: #edf0f4;
+
+    --cwcp-background: #f7f8fc;
+    --cwcp-white: #ffffff;
+
+    --cwcp-radius: 7px;
+    --cwcp-radius-large: 10px;
+
+    --cwcp-shadow:
+        0 8px 30px rgba(31, 41, 55, 0.05);
+
+    --cwcp-transition:
+        all 0.2s ease;
+}
+
+
+/* =========================================================
+   BOX SIZING
+   ========================================================= */
+
+.cwcp-registration,
+.cwcp-registration *,
+.cwcp-registration *::before,
+.cwcp-registration *::after,
+
+.cwcp-dashboard-wrapper,
+.cwcp-dashboard-wrapper *,
+.cwcp-dashboard-wrapper *::before,
+.cwcp-dashboard-wrapper *::after,
+
+.cwcp-login-page,
+.cwcp-login-page *,
+.cwcp-login-page *::before,
+.cwcp-login-page *::after,
+
+.cwcp-profile-page,
+.cwcp-profile-page *,
+.cwcp-profile-page *::before,
+.cwcp-profile-page *::after,
+
+.cwcp-resume-page,
+.cwcp-resume-page *,
+.cwcp-resume-page *::before,
+.cwcp-resume-page *::after,
+
+.cwcp-education-page,
+.cwcp-education-page *,
+.cwcp-education-page *::before,
+.cwcp-education-page *::after,
+
+.cwcp-experience-page,
+.cwcp-experience-page *,
+.cwcp-experience-page *::before,
+.cwcp-experience-page *::after,
+
+.cwcp-applied-jobs-page,
+.cwcp-applied-jobs-page *,
+.cwcp-applied-jobs-page *::before,
+.cwcp-applied-jobs-page *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PORTAL FONT
+   ========================================================= */
+
+.cwcp-registration,
+.cwcp-login-page,
+.cwcp-dashboard-wrapper,
+.cwcp-profile-page,
+.cwcp-resume-page,
+.cwcp-education-page,
+.cwcp-experience-page,
+.cwcp-applied-jobs-page {
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    color: var(--cwcp-text);
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    text-align: left;
+}
+
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
+.cwcp-registration h1,
+.cwcp-registration h2,
+.cwcp-registration h3,
+.cwcp-registration h4,
+.cwcp-registration h5,
+.cwcp-registration h6,
+
+.cwcp-login-page h1,
+.cwcp-login-page h2,
+.cwcp-login-page h3,
+.cwcp-login-page h4,
+.cwcp-login-page h5,
+.cwcp-login-page h6,
+
+.cwcp-dashboard-wrapper h1,
+.cwcp-dashboard-wrapper h2,
+.cwcp-dashboard-wrapper h3,
+.cwcp-dashboard-wrapper h4,
+.cwcp-dashboard-wrapper h5,
+.cwcp-dashboard-wrapper h6,
+
+.cwcp-profile-page h1,
+.cwcp-profile-page h2,
+.cwcp-profile-page h3,
+.cwcp-profile-page h4,
+.cwcp-profile-page h5,
+.cwcp-profile-page h6,
+
+.cwcp-resume-page h1,
+.cwcp-resume-page h2,
+.cwcp-resume-page h3,
+.cwcp-resume-page h4,
+.cwcp-resume-page h5,
+.cwcp-resume-page h6,
+
+.cwcp-education-page h1,
+.cwcp-education-page h2,
+.cwcp-education-page h3,
+.cwcp-education-page h4,
+.cwcp-education-page h5,
+.cwcp-education-page h6,
+
+.cwcp-experience-page h1,
+.cwcp-experience-page h2,
+.cwcp-experience-page h3,
+.cwcp-experience-page h4,
+.cwcp-experience-page h5,
+.cwcp-experience-page h6,
+
+.cwcp-applied-jobs-page h1,
+.cwcp-applied-jobs-page h2,
+.cwcp-applied-jobs-page h3,
+.cwcp-applied-jobs-page h4,
+.cwcp-applied-jobs-page h5,
+.cwcp-applied-jobs-page h6 {
+
+    font-family: inherit;
+
+    margin-top: 0;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.cwcp-registration a,
+.cwcp-login-page a,
+.cwcp-dashboard-wrapper a,
+.cwcp-profile-page a,
+.cwcp-resume-page a,
+.cwcp-education-page a,
+.cwcp-experience-page a,
+.cwcp-applied-jobs-page a {
+
+    box-shadow: none;
+
+    text-decoration-thickness: 1px;
+}
+
+
+/* =========================================================
+   IMAGES
+   ========================================================= */
+
+.cwcp-registration img,
+.cwcp-login-page img,
+.cwcp-dashboard-wrapper img,
+.cwcp-profile-page img,
+.cwcp-resume-page img,
+.cwcp-education-page img,
+.cwcp-experience-page img,
+.cwcp-applied-jobs-page img {
+
+    max-width: 100%;
+
+    height: auto;
+}
+
+
+/* =========================================================
+   BUTTON RESET
+   ========================================================= */
+
+.cwcp-registration button,
+.cwcp-login-page button,
+.cwcp-dashboard-wrapper button,
+.cwcp-profile-page button,
+.cwcp-resume-page button,
+.cwcp-education-page button,
+.cwcp-experience-page button,
+.cwcp-applied-jobs-page button {
+
+    font-family: inherit;
+
+    box-shadow: none;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   INPUT RESET
+   ========================================================= */
+
+.cwcp-registration input,
+.cwcp-registration select,
+.cwcp-registration textarea,
+
+.cwcp-login-page input,
+.cwcp-login-page select,
+.cwcp-login-page textarea,
+
+.cwcp-profile-page input,
+.cwcp-profile-page select,
+.cwcp-profile-page textarea,
+
+.cwcp-resume-page input,
+.cwcp-resume-page select,
+.cwcp-resume-page textarea,
+
+.cwcp-education-page input,
+.cwcp-education-page select,
+.cwcp-education-page textarea,
+
+.cwcp-experience-page input,
+.cwcp-experience-page select,
+.cwcp-experience-page textarea,
+
+.cwcp-applied-jobs-page input,
+.cwcp-applied-jobs-page select,
+.cwcp-applied-jobs-page textarea {
+
+    font-family: inherit;
+
+    box-shadow: none;
+
+    outline: none;
+}
+
+
+/* =========================================================
+   COMMON CONTAINER
+   ========================================================= */
+
+.cwcp-container {
+
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+
+/* =========================================================
+   COMMON PAGE BACKGROUND
+   ========================================================= */
+
+.cwcp-page {
+
+    width: 100%;
+
+    min-height: 400px;
+
+    padding: 40px 20px;
+
+    background: var(--cwcp-background);
+}
+
+
+/* =========================================================
+   COMMON CARD
+   ========================================================= */
+
+.cwcp-card {
+
+    width: 100%;
+
+    background: var(--cwcp-white);
+
+    border: 1px solid var(--cwcp-border);
+
+    border-radius: var(--cwcp-radius-large);
+
+    box-shadow: var(--cwcp-shadow);
+}
+
+
+/* =========================================================
+   COMMON ICON BOX
+   ========================================================= */
+
+.cwcp-icon-box {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--cwcp-radius);
+
+    background: var(--cwcp-primary-light);
+
+    color: var(--cwcp-primary);
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.cwcp-btn-primary {
+
+    min-height: 42px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 0 18px;
+
+    border: 0;
+
+    border-radius: var(--cwcp-radius);
+
+    background: var(--cwcp-primary);
+
+    color: #ffffff !important;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    text-decoration: none !important;
+
+    transition: var(--cwcp-transition);
+}
+
+.cwcp-btn-primary:hover {
+
+    background: var(--cwcp-primary-dark);
+
+    color: #ffffff !important;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+   ========================================================= */
+
+.cwcp-btn-secondary {
+
+    min-height: 42px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 0 18px;
+
+    border: 1px solid var(--cwcp-border);
+
+    border-radius: var(--cwcp-radius);
+
+    background: #ffffff;
+
+    color: var(--cwcp-text-dark) !important;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    text-decoration: none !important;
+
+    transition: var(--cwcp-transition);
+}
+
+.cwcp-btn-secondary:hover {
+
+    border-color: var(--cwcp-primary);
+
+    color: var(--cwcp-primary) !important;
+}
+
+
+/* =========================================================
+   DANGER BUTTON
+   ========================================================= */
+
+.cwcp-btn-danger {
+
+    min-height: 42px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 0 18px;
+
+    border: 1px solid #fecaca;
+
+    border-radius: var(--cwcp-radius);
+
+    background: #ffffff;
+
+    color: var(--cwcp-danger) !important;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-decoration: none !important;
+
+    transition: var(--cwcp-transition);
+}
+
+.cwcp-btn-danger:hover {
+
+    background: var(--cwcp-danger-light);
+
+    border-color: var(--cwcp-danger);
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.cwcp-form-group {
+
+    width: 100%;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   FORM LABEL
+   ========================================================= */
+
+.cwcp-form-label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--cwcp-text-dark);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+.cwcp-form-label .required {
+
+    color: var(--cwcp-danger);
+}
+
+
+/* =========================================================
+   FORM INPUT
+   ========================================================= */
+
+.cwcp-form-input {
+
+    display: block;
+
+    width: 100%;
+
+    min-height: 44px;
+
+    padding: 10px 13px;
+
+    border: 1px solid #dce1e8;
+
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: var(--cwcp-text-dark);
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cwcp-form-input:hover {
+
+    border-color: #c5ccd7;
+}
+
+.cwcp-form-input:focus {
+
+    border-color: var(--cwcp-primary);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(29, 78, 216, 0.08);
+
+    outline: none;
+}
+
+
+/* =========================================================
+   FORM ERROR
+   ========================================================= */
+
+.cwcp-error {
+
+    display: block;
+
+    margin-top: 6px;
+
+    color: var(--cwcp-danger);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE
+   ========================================================= */
+
+.cwcp-success {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #bbf7d0;
+
+    border-radius: var(--cwcp-radius);
+
+    background: var(--cwcp-success-light);
+
+    color: #166534;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
+
+.cwcp-alert-error {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #fecaca;
+
+    border-radius: var(--cwcp-radius);
+
+    background: var(--cwcp-danger-light);
+
+    color: #b91c1c;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   WARNING MESSAGE
+   ========================================================= */
+
+.cwcp-alert-warning {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #fed7aa;
+
+    border-radius: var(--cwcp-radius);
+
+    background: var(--cwcp-warning-light);
+
+    color: #c2410c;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   INFO MESSAGE
+   ========================================================= */
+
+.cwcp-alert-info {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #bfdbfe;
+
+    border-radius: var(--cwcp-radius);
+
+    background: #eff6ff;
+
+    color: #1e40af;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.cwcp-page-header {
+
+    width: 100%;
+
+    margin-bottom: 30px;
+}
+
+.cwcp-page-header-label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--cwcp-primary);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+.cwcp-page-header h1 {
+
+    margin: 0 0 7px;
+
+    color: var(--cwcp-text);
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+.cwcp-page-header p {
+
+    max-width: 700px;
+
+    margin: 0;
+
+    color: var(--cwcp-text-muted);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.cwcp-section-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+.cwcp-section-header-icon {
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 7px;
+
+    background: var(--cwcp-primary-light);
+
+    color: var(--cwcp-primary);
+
+    font-size: 13px;
+}
+
+.cwcp-section-header h2 {
+
+    margin: 0 0 3px;
+
+    color: var(--cwcp-text-dark);
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+.cwcp-section-header p {
+
+    margin: 0;
+
+    color: var(--cwcp-text-light);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.cwcp-empty {
+
+    width: 100%;
+
+    padding: 50px 25px;
+
+    text-align: center;
+}
+
+.cwcp-empty-icon {
+
+    width: 56px;
+    height: 56px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: #f3f5f9;
+
+    color: #8b94a5;
+
+    font-size: 20px;
+}
+
+.cwcp-empty h3 {
+
+    margin: 0 0 7px;
+
+    color: var(--cwcp-text-dark);
+
+    font-size: 16px;
+
+    line-height: 1.3;
+}
+
+.cwcp-empty p {
+
+    max-width: 450px;
+
+    margin: 0 auto 18px;
+
+    color: var(--cwcp-text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.cwcp-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    min-height: 25px;
+
+    padding: 0 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    line-height: 1;
+}
+
+.cwcp-badge-success {
+
+    background: var(--cwcp-success-light);
+
+    color: #15803d;
+}
+
+.cwcp-badge-danger {
+
+    background: var(--cwcp-danger-light);
+
+    color: #b91c1c;
+}
+
+.cwcp-badge-warning {
+
+    background: var(--cwcp-warning-light);
+
+    color: #c2410c;
+}
+
+.cwcp-badge-primary {
+
+    background: var(--cwcp-primary-light);
+
+    color: var(--cwcp-primary);
+}
+
+.cwcp-badge-neutral {
+
+    background: #f3f4f6;
+
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.cwcp-table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.cwcp-table {
+
+    width: 100%;
+
+    min-width: 600px;
+
+    border-collapse: collapse;
+
+    border-spacing: 0;
+}
+
+.cwcp-table th {
+
+    padding: 12px 15px;
+
+    border-bottom: 1px solid var(--cwcp-border);
+
+    background: #fafbfc;
+
+    color: #737b8d;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+.cwcp-table td {
+
+    padding: 15px;
+
+    border-bottom: 1px solid var(--cwcp-border-light);
+
+    color: #4b5563;
+
+    font-size: 12px;
+
+    vertical-align: middle;
+}
+
+.cwcp-table tbody tr:hover {
+
+    background: #fafbff;
+}
+
+.cwcp-table tbody tr:last-child td {
+
+    border-bottom: 0;
+}
+
+
+/* =========================================================
+   FLEX UTILITIES
+   ========================================================= */
+
+.cwcp-flex {
+
+    display: flex;
+}
+
+.cwcp-flex-center {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.cwcp-flex-between {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cwcp-align-center {
+
+    align-items: center;
+}
+
+.cwcp-flex-wrap {
+
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   TEXT UTILITIES
+   ========================================================= */
+
+.cwcp-text-muted {
+
+    color: var(--cwcp-text-muted);
+}
+
+.cwcp-text-primary {
+
+    color: var(--cwcp-primary);
+}
+
+.cwcp-text-success {
+
+    color: var(--cwcp-success);
+}
+
+.cwcp-text-danger {
+
+    color: var(--cwcp-danger);
+}
+
+.cwcp-text-center {
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   SPACING UTILITIES
+   ========================================================= */
+
+.cwcp-mb-0 {
+    margin-bottom: 0;
+}
+
+.cwcp-mb-10 {
+    margin-bottom: 10px;
+}
+
+.cwcp-mb-15 {
+    margin-bottom: 15px;
+}
+
+.cwcp-mb-20 {
+    margin-bottom: 20px;
+}
+
+.cwcp-mb-25 {
+    margin-bottom: 25px;
+}
+
+.cwcp-mb-30 {
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   HIDE
+   ========================================================= */
+
+.cwcp-hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .cwcp-container {
+
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .cwcp-page {
+
+        padding: 30px 15px;
+    }
+
+    .cwcp-page-header h1 {
+
+        font-size: 24px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .cwcp-page {
+
+        padding: 20px 12px;
+    }
+
+    .cwcp-page-header {
+
+        margin-bottom: 22px;
+    }
+
+    .cwcp-page-header h1 {
+
+        font-size: 22px;
+    }
+
+    .cwcp-section-header h2 {
+
+        font-size: 15px;
+    }
+
+    .cwcp-btn-primary,
+    .cwcp-btn-secondary,
+    .cwcp-btn-danger {
+
+        min-height: 42px;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .cwcp-container {
+
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .cwcp-page {
+
+        padding: 15px 8px;
+    }
+
+    .cwcp-page-header h1 {
+
+        font-size: 20px;
+    }
+}
