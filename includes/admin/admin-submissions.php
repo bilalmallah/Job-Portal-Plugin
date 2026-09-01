@@ -1,9 +1,9 @@
 <?php
 /**
- * Care Wave Candidate Portal - Admin screen for volunteer, internship,
+ * CareerHub - Admin screen for volunteer, internship,
  * field facilitator and tender submissions.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {

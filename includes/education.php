@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Education history.
+ * CareerHub - Education history.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -373,4 +373,4 @@ function cwcp_education_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_education', 'cwcp_education_shortcode');
+cwcp_add_shortcode('education', 'cwcp_education_shortcode');

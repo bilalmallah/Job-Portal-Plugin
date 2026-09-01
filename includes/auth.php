@@ -1,11 +1,11 @@
 <?php
 /**
- * Care Wave Candidate Portal - Registration, login, logout and password reset.
+ * CareerHub - Registration, login, logout and password reset.
  *
  * All form processing happens on template_redirect so that a redirect can be
  * issued before any output is sent.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -523,8 +523,8 @@ function cwcp_registration_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_register', 'cwcp_registration_shortcode');
-add_shortcode('carewave_candidate_registration', 'cwcp_registration_shortcode');
+cwcp_add_shortcode('register', 'cwcp_registration_shortcode');
+cwcp_add_shortcode('candidate_registration', 'cwcp_registration_shortcode');
 
 
 /*
@@ -612,7 +612,7 @@ function cwcp_login_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_login', 'cwcp_login_shortcode');
+cwcp_add_shortcode('login', 'cwcp_login_shortcode');
 
 
 /*
@@ -666,7 +666,7 @@ function cwcp_lost_password_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_lost_password', 'cwcp_lost_password_shortcode');
+cwcp_add_shortcode('lost_password', 'cwcp_lost_password_shortcode');
 
 
 /*
@@ -741,7 +741,7 @@ function cwcp_reset_password_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_reset_password', 'cwcp_reset_password_shortcode');
+cwcp_add_shortcode('reset_password', 'cwcp_reset_password_shortcode');
 
 
 /*

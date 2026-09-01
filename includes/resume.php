@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Resume upload and document handling.
+ * CareerHub - Resume upload and document handling.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -581,7 +581,7 @@ function cwcp_resume_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_resume', 'cwcp_resume_shortcode');
+cwcp_add_shortcode('resume', 'cwcp_resume_shortcode');
 
 
 /*

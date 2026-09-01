@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Email notifications.
+ * CareerHub - Email notifications.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {

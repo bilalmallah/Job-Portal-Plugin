@@ -1,12 +1,12 @@
 <?php
 /**
- * Care Wave Candidate Portal - Volunteer, internship, field facilitator and
+ * CareerHub - Volunteer, internship, field facilitator and
  * tender / donation forms.
  *
  * All four share one schema driven renderer, one validator and one storage
  * table, so adding another form later only means adding a schema.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -162,11 +162,7 @@ function cwcp_form_option_set($set, $context = array()) {
             return cwcp_provinces();
 
         case 'districts':
-            $province = isset($context['province']) ? $context['province'] : '';
-
-            $list = cwcp_districts($province);
-
-            return $list ? array_combine($list, $list) : array();
+            return cwcp_district_options(isset($context['province']) ? $context['province'] : '');
 
         case 'availability':
             return array(
@@ -785,7 +781,7 @@ function cwcp_volunteer_form_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_volunteer_form', 'cwcp_volunteer_form_shortcode');
+cwcp_add_shortcode('volunteer_form', 'cwcp_volunteer_form_shortcode');
 
 function cwcp_internship_form_shortcode() {
 
@@ -805,7 +801,7 @@ function cwcp_internship_form_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_internship_form', 'cwcp_internship_form_shortcode');
+cwcp_add_shortcode('internship_form', 'cwcp_internship_form_shortcode');
 
 function cwcp_field_facilitator_form_shortcode() {
 
@@ -825,7 +821,7 @@ function cwcp_field_facilitator_form_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_field_facilitator_form', 'cwcp_field_facilitator_form_shortcode');
+cwcp_add_shortcode('field_facilitator_form', 'cwcp_field_facilitator_form_shortcode');
 
 
 /*
@@ -1006,4 +1002,4 @@ function cwcp_tenders_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_tenders', 'cwcp_tenders_shortcode');
+cwcp_add_shortcode('tenders', 'cwcp_tenders_shortcode');

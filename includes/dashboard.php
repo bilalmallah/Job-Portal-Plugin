@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Candidate dashboard.
+ * CareerHub - Candidate dashboard.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -249,4 +249,4 @@ function cwcp_dashboard_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_dashboard', 'cwcp_dashboard_shortcode');
+cwcp_add_shortcode('dashboard', 'cwcp_dashboard_shortcode');

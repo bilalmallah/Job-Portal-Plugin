@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Admin menu and overview screen.
+ * CareerHub - Admin menu and overview screen.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -14,8 +14,8 @@ function cwcp_admin_menu() {
     $cap = 'cwcp_manage_portal';
 
     add_menu_page(
-        'Care Wave Portal',
-        'Care Wave',
+        'CareerHub',
+        'CareerHub',
         $cap,
         'cwcp-overview',
         'cwcp_render_overview_page',
@@ -86,7 +86,7 @@ function cwcp_admin_menu() {
 add_action('admin_menu', 'cwcp_admin_menu');
 
 /**
- * Keeps the Care Wave menu highlighted while editing a job or tender.
+ * Keeps the CareerHub menu highlighted while editing a job or tender.
  */
 function cwcp_admin_parent_file($parent_file) {
 
@@ -155,7 +155,7 @@ function cwcp_render_overview_page() {
     ?>
     <div class="wrap cwcp-admin">
 
-        <h1>Care Wave Portal Overview</h1>
+        <h1>CareerHub Overview</h1>
 
         <div class="cwcp-admin-stats">
 

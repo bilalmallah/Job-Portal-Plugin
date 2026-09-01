@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Care Wave Candidate Portal
- * Plugin URI: https://carewavefoundation.pk/
- * Description: Complete job portal for Care Wave Foundation - candidate registration and login, profile with CNIC and district details, education, experience, skills and resume, one click job applications, plus volunteer, internship, field facilitator and tender forms with a full admin back office.
- * Version: 2.0.0
+ * Plugin Name: CareerHub
+ * Plugin URI: https://github.com/
+ * Description: Complete job portal for WordPress - candidate registration and login, profiles with CNIC and district details, education, experience, skills and resume, one click job applications, plus volunteer, internship, field facilitator and tender forms with a full admin back office.
+ * Version: 2.1.0
  * Requires at least: 5.6
  * Requires PHP: 7.2
  * Author: Care Wave Foundation
- * Text Domain: carewave-candidate-portal
+ * Text Domain: careerhub
  */
 
 if (!defined('ABSPATH')) {
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 |--------------------------------------------------------------------------
 */
 
-define('CWCP_VERSION', '2.0.0');
+define('CWCP_VERSION', '2.1.0');
 define('CWCP_FILE', __FILE__);
 define('CWCP_PATH', plugin_dir_path(__FILE__));
 define('CWCP_URL', plugin_dir_url(__FILE__));

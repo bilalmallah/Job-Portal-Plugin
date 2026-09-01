@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Candidate skills.
+ * CareerHub - Candidate skills.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -240,4 +240,4 @@ function cwcp_skills_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_skills', 'cwcp_skills_shortcode');
+cwcp_add_shortcode('skills', 'cwcp_skills_shortcode');

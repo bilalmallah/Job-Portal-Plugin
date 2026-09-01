@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Settings screen.
+ * CareerHub - Settings screen.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {

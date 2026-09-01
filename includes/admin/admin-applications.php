@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Admin applications screen.
+ * CareerHub - Admin applications screen.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -122,7 +122,7 @@ function cwcp_export_applications_csv() {
         )
     );
 
-    cwcp_send_csv_headers('carewave-applications-' . gmdate('Y-m-d') . '.csv');
+    cwcp_send_csv_headers('careerhub-applications-' . gmdate('Y-m-d') . '.csv');
 
     $output = fopen('php://output', 'w');
 

@@ -1,4 +1,4 @@
-# Care Wave Candidate Portal
+# CareerHub
 
 A complete job portal for WordPress: candidate accounts, profiles, one click
 job applications, and volunteer / internship / field facilitator / tender forms,
@@ -9,12 +9,12 @@ with a full admin back office.
 ## Installation
 
 1. Copy this folder to `wp-content/plugins/carewave-candidate-portal`.
-2. Activate **Care Wave Candidate Portal** in *Plugins*.
+2. Activate **CareerHub** in *Plugins*.
 3. Go to *Settings → Permalinks* and click **Save** once (refreshes job URLs).
 
 Activation creates automatically:
 
-* the **Care Wave Candidate** user role,
+* the **Candidate** user role,
 * six database tables (`wp_cwcp_*`),
 * every portal page with its shortcode already inside,
 * starter job categories and job types,
@@ -22,7 +22,7 @@ Activation creates automatically:
 
 Add the pages you want visitors to see (Jobs, Login, Registration, Volunteer
 Form, Internship Form, Field Facilitator Form, Tenders) to your menu.
-The full list with links is in *Care Wave → Overview*.
+The full list with links is in *CareerHub → Overview*.
 
 ---
 
@@ -64,7 +64,7 @@ The completeness percentage is shown in the sidebar of every portal screen.
 
 ## Admin flow
 
-Everything lives under the **Care Wave** menu.
+Everything lives under the **CareerHub** menu.
 
 | Screen | What you can do |
 | --- | --- |
@@ -86,7 +86,7 @@ deadline passes, or when it is unpublished.
 
 ## Colours and login branding
 
-*Care Wave -> Settings -> Colours* lets an administrator match the portal to the
+*CareerHub -> Settings -> Colours* lets an administrator match the portal to the
 site theme without touching CSS.
 
 * **Nine colours** are chosen: primary/brand, body text, muted text, page
@@ -94,7 +94,7 @@ site theme without touching CSS.
   Everything else - hover shades, tinted badge backgrounds, focus rings, the
   readable text colour on top of a coloured button - is derived automatically,
   so a single brand colour is usually all you need to change.
-* **Quick schemes** (Care Wave Blue, Teal, Forest Green, Maroon, Charcoal) fill
+* **Quick schemes** (Classic Blue, Teal, Forest Green, Maroon, Charcoal) fill
   the fields in one click.
 * **From your theme** shows the palette your active theme declares - through
   `theme.json` on block themes, or `add_theme_support('editor-color-palette')`

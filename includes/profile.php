@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Candidate profile and account completeness.
+ * CareerHub - Candidate profile and account completeness.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -178,11 +178,7 @@ function cwcp_field_options($set, $user_id = 0) {
             return cwcp_provinces();
 
         case 'districts':
-            $province = cwcp_get_profile_value($user_id, 'province');
-
-            $districts = cwcp_districts($province);
-
-            return array_combine($districts, $districts) ?: array();
+            return cwcp_district_options(cwcp_get_profile_value($user_id, 'province'));
     }
 
     return array();
@@ -708,9 +704,7 @@ function cwcp_profile_shortcode() {
                                         : cwcp_field_options($field['options']);
 
                                     if ('districts' === $field['options'] && isset($old['province'])) {
-
-                                        $list    = cwcp_districts($old['province']);
-                                        $options = $list ? array_combine($list, $list) : array();
+                                        $options = cwcp_district_options($old['province']);
                                     }
 
                                     echo cwcp_select_options($options, $value, '-- Select --'); // phpcs:ignore WordPress.Security.EscapeOutput
@@ -840,7 +834,7 @@ function cwcp_profile_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_profile', 'cwcp_profile_shortcode');
+cwcp_add_shortcode('profile', 'cwcp_profile_shortcode');
 
 
 /*

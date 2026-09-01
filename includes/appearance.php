@@ -1,13 +1,13 @@
 <?php
 /**
- * Care Wave Candidate Portal - Colour scheme.
+ * CareerHub - Colour scheme.
  *
  * One palette, chosen by the administrator, drives the whole portal, the
  * plugin's admin screens and the WordPress login page. Every colour is stored
  * as a hex value and printed as a CSS custom property, so nothing has to be
  * recompiled when it changes.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -102,7 +102,7 @@ function cwcp_color_presets() {
     return array(
 
         'carewave' => array(
-            'label'  => 'Care Wave Blue',
+            'label'  => 'Classic Blue',
             'colors' => array('primary' => '#1d4ed8', 'success' => '#16a34a', 'warning' => '#ea8b19', 'danger' => '#dc2626'),
         ),
 

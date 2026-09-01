@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Installation, database schema and upgrades.
+ * CareerHub - Installation, database schema and upgrades.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -24,12 +24,21 @@ function cwcp_register_roles() {
 
         add_role(
             'carewave_candidate',
-            'Care Wave Candidate',
+            'Candidate',
             array(
                 'read' => true,
             )
         );
     }
+
+    /*
+     * The role key stays carewave_candidate so existing accounts keep their
+     * role; only the label shown in the admin is refreshed. Removing and
+     * re-adding the role would strip it from every candidate, so the stored
+     * name is rewritten in place instead.
+     */
+
+    cwcp_rename_candidate_role_label('Candidate');
 
     /*
      * Administrators and editors manage the portal.
@@ -46,6 +55,24 @@ function cwcp_register_roles() {
     if ($editor && !$editor->has_cap('cwcp_manage_portal')) {
         $editor->add_cap('cwcp_manage_portal');
     }
+}
+
+function cwcp_rename_candidate_role_label($label) {
+
+    global $wp_roles;
+
+    if (!isset($wp_roles) || !isset($wp_roles->roles['carewave_candidate'])) {
+        return;
+    }
+
+    if ($wp_roles->roles['carewave_candidate']['name'] === $label) {
+        return;
+    }
+
+    $wp_roles->roles['carewave_candidate']['name'] = $label;
+    $wp_roles->role_names['carewave_candidate']    = $label;
+
+    update_option($wp_roles->role_key, $wp_roles->roles);
 }
 
 add_action('init', 'cwcp_register_roles', 5);

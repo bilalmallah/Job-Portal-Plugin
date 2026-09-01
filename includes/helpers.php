@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Shared helpers.
+ * CareerHub - Shared helpers.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -87,6 +87,27 @@ function cwcp_setting($key, $fallback = '') {
 
 /*
 |--------------------------------------------------------------------------
+| Shortcode Registration
+|--------------------------------------------------------------------------
+|
+| The plugin shipped first as "Care Wave Candidate Portal" with carewave_
+| prefixed shortcodes. Every screen is registered under both the current
+| careerhub_ name and the original one, so pages written against either name
+| keep working.
+|
+*/
+
+function cwcp_add_shortcode($base, $callback) {
+
+    add_shortcode('careerhub_' . $base, $callback);
+
+    /* Legacy name, kept for existing pages. */
+    add_shortcode('carewave_' . $base, $callback);
+}
+
+
+/*
+|--------------------------------------------------------------------------
 | Portal Pages
 |--------------------------------------------------------------------------
 |
@@ -98,23 +119,23 @@ function cwcp_setting($key, $fallback = '') {
 function cwcp_page_map() {
 
     return array(
-        'login'             => array('title' => 'Login',                  'slug' => 'login',                  'shortcode' => 'carewave_login'),
-        'register'          => array('title' => 'Registration',           'slug' => 'registration',           'shortcode' => 'carewave_register'),
-        'lost_password'     => array('title' => 'Forgot Password',        'slug' => 'forgot-password',        'shortcode' => 'carewave_lost_password'),
-        'reset_password'    => array('title' => 'Reset Password',         'slug' => 'reset-password',         'shortcode' => 'carewave_reset_password'),
-        'dashboard'         => array('title' => 'Candidate Dashboard',    'slug' => 'candidate-dashboard',    'shortcode' => 'carewave_dashboard'),
-        'profile'           => array('title' => 'My Profile',             'slug' => 'candidate-profile',      'shortcode' => 'carewave_profile'),
-        'education'         => array('title' => 'Education',              'slug' => 'candidate-education',    'shortcode' => 'carewave_education'),
-        'experience'        => array('title' => 'Experience',             'slug' => 'candidate-experience',   'shortcode' => 'carewave_experience'),
-        'skills'            => array('title' => 'Skills',                 'slug' => 'candidate-skills',       'shortcode' => 'carewave_skills'),
-        'resume'            => array('title' => 'Resume',                 'slug' => 'candidate-resume',       'shortcode' => 'carewave_resume'),
-        'applied_jobs'      => array('title' => 'Applied Jobs',           'slug' => 'applied-jobs',           'shortcode' => 'carewave_applied_jobs'),
-        'saved_jobs'        => array('title' => 'Saved Jobs',             'slug' => 'saved-jobs',             'shortcode' => 'carewave_saved_jobs'),
-        'jobs'              => array('title' => 'Jobs',                   'slug' => 'jobs-listing',           'shortcode' => 'carewave_jobs'),
-        'volunteer'         => array('title' => 'Volunteer Form',         'slug' => 'volunteer-form',         'shortcode' => 'carewave_volunteer_form'),
-        'internship'        => array('title' => 'Internship Form',        'slug' => 'internship-form',        'shortcode' => 'carewave_internship_form'),
-        'field_facilitator' => array('title' => 'Field Facilitator Form', 'slug' => 'field-facilitator-form', 'shortcode' => 'carewave_field_facilitator_form'),
-        'tenders'           => array('title' => 'Tenders & Donations',    'slug' => 'tenders',                'shortcode' => 'carewave_tenders'),
+        'login'             => array('title' => 'Login',                  'slug' => 'login',                  'shortcode' => 'careerhub_login'),
+        'register'          => array('title' => 'Registration',           'slug' => 'registration',           'shortcode' => 'careerhub_register'),
+        'lost_password'     => array('title' => 'Forgot Password',        'slug' => 'forgot-password',        'shortcode' => 'careerhub_lost_password'),
+        'reset_password'    => array('title' => 'Reset Password',         'slug' => 'reset-password',         'shortcode' => 'careerhub_reset_password'),
+        'dashboard'         => array('title' => 'Candidate Dashboard',    'slug' => 'candidate-dashboard',    'shortcode' => 'careerhub_dashboard'),
+        'profile'           => array('title' => 'My Profile',             'slug' => 'candidate-profile',      'shortcode' => 'careerhub_profile'),
+        'education'         => array('title' => 'Education',              'slug' => 'candidate-education',    'shortcode' => 'careerhub_education'),
+        'experience'        => array('title' => 'Experience',             'slug' => 'candidate-experience',   'shortcode' => 'careerhub_experience'),
+        'skills'            => array('title' => 'Skills',                 'slug' => 'candidate-skills',       'shortcode' => 'careerhub_skills'),
+        'resume'            => array('title' => 'Resume',                 'slug' => 'candidate-resume',       'shortcode' => 'careerhub_resume'),
+        'applied_jobs'      => array('title' => 'Applied Jobs',           'slug' => 'applied-jobs',           'shortcode' => 'careerhub_applied_jobs'),
+        'saved_jobs'        => array('title' => 'Saved Jobs',             'slug' => 'saved-jobs',             'shortcode' => 'careerhub_saved_jobs'),
+        'jobs'              => array('title' => 'Jobs',                   'slug' => 'jobs-listing',           'shortcode' => 'careerhub_jobs'),
+        'volunteer'         => array('title' => 'Volunteer Form',         'slug' => 'volunteer-form',         'shortcode' => 'careerhub_volunteer_form'),
+        'internship'        => array('title' => 'Internship Form',        'slug' => 'internship-form',        'shortcode' => 'careerhub_internship_form'),
+        'field_facilitator' => array('title' => 'Field Facilitator Form', 'slug' => 'field-facilitator-form', 'shortcode' => 'careerhub_field_facilitator_form'),
+        'tenders'           => array('title' => 'Tenders & Donations',    'slug' => 'tenders',                'shortcode' => 'careerhub_tenders'),
     );
 }
 
@@ -279,6 +300,27 @@ function cwcp_districts($province = '') {
     }
 
     return $districts;
+}
+
+/**
+ * Districts as a value => label list for a select field.
+ *
+ * cwcp_districts() with no province returns the whole province map, so the
+ * empty case is answered with an empty list here rather than combining arrays.
+ */
+function cwcp_district_options($province) {
+
+    if (!$province) {
+        return array();
+    }
+
+    $districts = cwcp_districts($province);
+
+    if (!$districts) {
+        return array();
+    }
+
+    return array_combine($districts, $districts);
 }
 
 function cwcp_religions() {

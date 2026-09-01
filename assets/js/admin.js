@@ -1,5 +1,5 @@
 /* =========================================================
-   CARE WAVE CANDIDATE PORTAL - ADMIN
+   CAREERHUB - ADMIN
    Colour pickers, presets and the live preview on the
    settings screen.
    ========================================================= */

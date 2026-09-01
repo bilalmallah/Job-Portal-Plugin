@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Job listing, job detail and the apply box.
+ * CareerHub - Job listing, job detail and the apply box.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -408,7 +408,7 @@ function cwcp_jobs_shortcode($atts) {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_jobs', 'cwcp_jobs_shortcode');
+cwcp_add_shortcode('jobs', 'cwcp_jobs_shortcode');
 
 
 /*
@@ -938,7 +938,7 @@ function cwcp_applied_jobs_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_applied_jobs', 'cwcp_applied_jobs_shortcode');
+cwcp_add_shortcode('applied_jobs', 'cwcp_applied_jobs_shortcode');
 
 
 /*
@@ -989,4 +989,4 @@ function cwcp_saved_jobs_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_saved_jobs', 'cwcp_saved_jobs_shortcode');
+cwcp_add_shortcode('saved_jobs', 'cwcp_saved_jobs_shortcode');

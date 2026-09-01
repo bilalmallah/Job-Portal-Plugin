@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Work experience history.
+ * CareerHub - Work experience history.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -502,4 +502,4 @@ function cwcp_experience_shortcode() {
     return ob_get_clean();
 }
 
-add_shortcode('carewave_experience', 'cwcp_experience_shortcode');
+cwcp_add_shortcode('experience', 'cwcp_experience_shortcode');

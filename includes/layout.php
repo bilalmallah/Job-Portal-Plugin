@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Shared portal chrome (sidebar + header).
+ * CareerHub - Shared portal chrome (sidebar + header).
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {

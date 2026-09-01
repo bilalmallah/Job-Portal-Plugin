@@ -1,5 +1,5 @@
 /* =========================================================
-   CARE WAVE CANDIDATE PORTAL
+   CAREERHUB
    Frontend behaviour: password toggles, province/district
    cascade, one click apply and saved jobs.
    ========================================================= */

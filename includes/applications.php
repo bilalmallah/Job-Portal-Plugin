@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Job applications (easy apply) and saved jobs.
+ * CareerHub - Job applications (easy apply) and saved jobs.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {

@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Jobs and Tenders post types.
+ * CareerHub - Jobs and Tenders post types.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
@@ -39,7 +39,7 @@ function cwcp_register_job_post_type() {
             'labels'          => $labels,
             'public'          => true,
             'show_ui'         => true,
-            'show_in_menu'    => false, // Added under the Care Wave menu.
+            'show_in_menu'    => false, // Added under the CareerHub menu.
             'show_in_rest'    => true,
             'has_archive'     => 'jobs',
             'rewrite'         => array('slug' => 'job', 'with_front' => false),

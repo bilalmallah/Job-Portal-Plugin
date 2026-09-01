@@ -1,8 +1,8 @@
 <?php
 /**
- * Care Wave Candidate Portal - Admin candidates screen.
+ * CareerHub - Admin candidates screen.
  *
- * @package CareWaveCandidatePortal
+ * @package CareerHub
  */
 
 if (!defined('ABSPATH')) {
