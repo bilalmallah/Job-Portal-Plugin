@@ -705,7 +705,7 @@ function cwcp_single_job_content($content) {
       * portal page background being painted over the theme's template.
       */
 
-    return '<div class="cwcp-scope cwcp-single-job alignwide">'
+    return '<div class="cwcp-scope cwcp-single-job">'
         . cwcp_job_layout($job_id, $content)
         . '</div>';
 }

@@ -202,6 +202,13 @@ function cwcp_install_tables() {
 |--------------------------------------------------------------------------
 */
 
+/**
+ * Creates any missing portal page and relinks the ones that already exist.
+ *
+ * @return array Keys of the pages actually inserted this run. A page that was
+ *               merely relinked by slug is not in the list - the setup wizard
+ *               reports on this, and "Created" has to mean created.
+ */
 function cwcp_install_pages() {
 
     $stored = get_option('cwcp_pages', array());
@@ -209,6 +216,8 @@ function cwcp_install_pages() {
     if (!is_array($stored)) {
         $stored = array();
     }
+
+    $created = array();
 
     foreach (cwcp_page_map() as $key => $page) {
 
@@ -246,11 +255,16 @@ function cwcp_install_pages() {
         );
 
         if ($page_id && !is_wp_error($page_id)) {
+
             $stored[$key] = (int) $page_id;
+
+            $created[] = $key;
         }
     }
 
     update_option('cwcp_pages', $stored);
+
+    return $created;
 }
 
 
@@ -366,12 +380,32 @@ function cwcp_activate_plugin() {
 
     cwcp_install_default_terms();
 
-    cwcp_install_pages();
-
     cwcp_protect_uploads();
 
     if (false === get_option('cwcp_settings')) {
         update_option('cwcp_settings', cwcp_default_settings());
+    }
+
+    /*
+     * A site that already has pages or settings is being re-activated, not
+     * installed, so its existing choices are kept and the wizard stays out of
+     * the way. Only a genuinely fresh install is asked how it wants its pages
+     * built - creating seventeen pages unasked is what the wizard replaces.
+     */
+
+    $is_fresh_install = (false === get_option('cwcp_pages', false));
+
+    if ($is_fresh_install) {
+
+        set_transient('cwcp_setup_redirect', 1, 60);
+
+    } else {
+
+        update_option('cwcp_setup_complete', 1);
+
+        if ('auto' === get_option('cwcp_page_mode', 'auto')) {
+            cwcp_install_pages();
+        }
     }
 
     flush_rewrite_rules();
@@ -405,7 +439,15 @@ function cwcp_maybe_upgrade() {
 
     cwcp_install_tables();
 
-    cwcp_install_pages();
+    /*
+     * Only an auto-pages site gets its pages topped up. On a manual site the
+     * screens live wherever Elementor put them, and recreating shortcode pages
+     * behind the author's back would be the bug, not the fix.
+     */
+
+    if ('auto' === get_option('cwcp_page_mode', 'auto') && get_option('cwcp_setup_complete', 0)) {
+        cwcp_install_pages();
+    }
 
     cwcp_protect_uploads();
 }

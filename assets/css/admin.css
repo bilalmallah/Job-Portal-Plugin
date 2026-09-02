@@ -359,3 +359,601 @@
 
     margin: 12px 0 0;
 }
+
+
+/* =========================================================
+   SETUP WIZARD
+   ========================================================= */
+
+.cwcp-setup {
+
+    max-width: 900px;
+}
+
+.cwcp-setup .cwcp-setup-head {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin: 20px 0 24px;
+}
+
+.cwcp-setup-logo {
+
+    width: 76px;
+    height: 76px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
+}
+
+.cwcp-setup-logo-fallback {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #1d4ed8;
+
+    color: #ffffff;
+}
+
+.cwcp-setup-logo-fallback .dashicons {
+
+    width: 40px;
+    height: 40px;
+
+    font-size: 40px;
+}
+
+.cwcp-setup-head-text h1 {
+
+    margin: 0 0 4px;
+
+    padding: 0;
+
+    font-size: 24px;
+
+    line-height: 1.2;
+}
+
+.cwcp-setup-head-text p {
+
+    margin: 0;
+
+    color: #646970;
+}
+
+
+/* ---------- Step rail ---------- */
+
+.cwcp-setup-steps {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin: 0 0 20px;
+
+    padding: 0;
+
+    list-style: none;
+
+    counter-reset: none;
+}
+
+.cwcp-setup-steps li {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex: 1;
+
+    margin: 0;
+
+    padding: 10px 14px;
+
+    border: 1px solid #dcdcde;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #787c82;
+
+    font-weight: 600;
+}
+
+.cwcp-setup-steps li.is-active {
+
+    border-color: #2271b1;
+
+    background: #f0f6fc;
+
+    color: #1d2327;
+}
+
+.cwcp-setup-steps li.is-done {
+
+    color: #1d2327;
+}
+
+.cwcp-setup-step-number {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #dcdcde;
+
+    color: #ffffff;
+
+    font-size: 12px;
+}
+
+.cwcp-setup-steps li.is-active .cwcp-setup-step-number {
+
+    background: #2271b1;
+}
+
+.cwcp-setup-steps li.is-done .cwcp-setup-step-number {
+
+    background: #00a32a;
+}
+
+
+/* ---------- Card ---------- */
+
+.cwcp-setup-card {
+
+    margin-bottom: 20px;
+
+    padding: 26px 28px;
+
+    border: 1px solid #dcdcde;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.cwcp-setup-card > h2 {
+
+    margin: 0 0 8px;
+
+    padding: 0;
+
+    font-size: 19px;
+}
+
+.cwcp-setup-card > h2 .dashicons {
+
+    color: #00a32a;
+
+    vertical-align: text-bottom;
+}
+
+.cwcp-setup-lead {
+
+    margin: 0 0 22px;
+
+    max-width: 70ch;
+
+    color: #50575e;
+
+    font-size: 14px;
+}
+
+
+/* ---------- Page mode choices ---------- */
+
+.cwcp-setup-choices {
+
+    display: grid;
+
+    gap: 16px;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    margin-bottom: 18px;
+}
+
+@media (max-width: 782px) {
+
+    .cwcp-setup-choices {
+
+        grid-template-columns: 1fr;
+    }
+}
+
+.cwcp-setup-choice {
+
+    display: block;
+
+    position: relative;
+
+    cursor: pointer;
+}
+
+.cwcp-setup-choice input {
+
+    position: absolute;
+
+    top: 16px;
+    left: 16px;
+
+    margin: 0;
+}
+
+.cwcp-setup-choice-body {
+
+    display: block;
+
+    height: 100%;
+
+    padding: 18px 18px 18px 44px;
+
+    border: 2px solid #dcdcde;
+    border-radius: 10px;
+
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.cwcp-setup-choice:hover .cwcp-setup-choice-body {
+
+    border-color: #a7aaad;
+}
+
+.cwcp-setup-choice input:checked + .cwcp-setup-choice-body {
+
+    border-color: #2271b1;
+
+    background: #f0f6fc;
+}
+
+.cwcp-setup-choice-icon {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    width: 28px;
+    height: 28px;
+
+    color: #2271b1;
+
+    font-size: 28px;
+}
+
+.cwcp-setup-choice-body strong {
+
+    display: inline-block;
+
+    margin-bottom: 6px;
+
+    font-size: 15px;
+}
+
+.cwcp-setup-choice-tag {
+
+    display: inline-block;
+
+    margin: 0 0 6px 8px;
+
+    padding: 2px 8px;
+
+    border-radius: 20px;
+
+    background: #d5e5f5;
+
+    color: #0a4b78;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+.cwcp-setup-choice-tag-warn {
+
+    background: #fcf0e4;
+
+    color: #8a4b08;
+}
+
+.cwcp-setup-choice-text {
+
+    display: block;
+
+    color: #50575e;
+
+    line-height: 1.6;
+}
+
+
+/* ---------- Theme presets ---------- */
+
+.cwcp-setup-presets {
+
+    display: grid;
+
+    gap: 14px;
+
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+    margin-bottom: 26px;
+}
+
+.cwcp-setup-preset {
+
+    display: block;
+
+    position: relative;
+
+    cursor: pointer;
+}
+
+.cwcp-setup-preset input {
+
+    position: absolute;
+
+    top: 12px;
+    left: 12px;
+
+    margin: 0;
+}
+
+.cwcp-setup-preset-body {
+
+    display: block;
+
+    padding: 14px 14px 12px 34px;
+
+    border: 2px solid #dcdcde;
+    border-radius: 10px;
+
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.cwcp-setup-preset input:checked + .cwcp-setup-preset-body {
+
+    border-color: #2271b1;
+
+    background: #f0f6fc;
+}
+
+.cwcp-setup-swatches {
+
+    display: flex;
+
+    gap: 4px;
+
+    margin-bottom: 10px;
+}
+
+.cwcp-setup-swatch {
+
+    display: block;
+
+    width: 22px;
+    height: 22px;
+
+    border-radius: 5px;
+
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.cwcp-setup-preset-label {
+
+    display: block;
+
+    font-weight: 600;
+}
+
+
+/* ---------- Fields ---------- */
+
+.cwcp-setup-field {
+
+    margin-bottom: 24px;
+}
+
+.cwcp-setup-field > label,
+.cwcp-setup-field > strong {
+
+    display: block;
+
+    margin-bottom: 8px;
+}
+
+.cwcp-setup-field input[type="color"] {
+
+    width: 70px;
+    height: 38px;
+
+    padding: 2px;
+
+    border: 1px solid #8c8f94;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+}
+
+.cwcp-setup-corners {
+
+    display: flex;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+}
+
+.cwcp-setup-corner {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+}
+
+.cwcp-setup-corner-box {
+
+    display: block;
+
+    width: 26px;
+    height: 26px;
+
+    border: 2px solid #2271b1;
+
+    background: #f0f6fc;
+}
+
+
+/* ---------- Notes, tables, actions ---------- */
+
+.cwcp-setup-note {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 8px;
+
+    margin: 0 0 18px;
+
+    padding: 12px 14px;
+
+    border-left: 4px solid #dba617;
+    border-radius: 4px;
+
+    background: #fcf9e8;
+
+    color: #50575e;
+}
+
+.cwcp-setup-note .dashicons {
+
+    flex-shrink: 0;
+
+    color: #dba617;
+}
+
+.cwcp-setup-details {
+
+    margin-bottom: 22px;
+}
+
+.cwcp-setup-details summary {
+
+    cursor: pointer;
+
+    color: #2271b1;
+
+    font-weight: 600;
+}
+
+.cwcp-setup-details table {
+
+    margin-top: 12px;
+}
+
+.cwcp-setup-table {
+
+    margin-bottom: 24px;
+}
+
+.cwcp-setup-pill {
+
+    display: inline-block;
+
+    padding: 2px 10px;
+
+    border-radius: 20px;
+
+    background: #f0f0f1;
+
+    color: #50575e;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.cwcp-setup-pill-new {
+
+    background: #edfaef;
+
+    color: #00623a;
+}
+
+.cwcp-setup-pill-warn {
+
+    background: #fcf0f1;
+
+    color: #8a2424;
+}
+
+.cwcp-setup-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin: 26px 0 0;
+}
+
+
+/* ---------- Footer ---------- */
+
+.cwcp-setup-foot {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 4px 2px 30px;
+
+    color: #787c82;
+
+    font-size: 12px;
+}
+
+.cwcp-setup-author-logo {
+
+    width: 40px;
+    height: 40px;
+
+    object-fit: contain;
+
+    opacity: 0.85;
+}

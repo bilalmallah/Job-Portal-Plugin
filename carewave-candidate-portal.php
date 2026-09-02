@@ -3,7 +3,7 @@
  * Plugin Name: CareerHub
  * Plugin URI: https://github.com/
  * Description: Complete job portal for WordPress - candidate registration and login, profiles with CNIC and district details, education, experience, skills and resume, one click job applications, plus volunteer, internship, field facilitator and tender forms with a full admin back office.
- * Version: 2.1.0
+ * Version: 2.3.0
  * Requires at least: 5.6
  * Requires PHP: 7.2
  * Author: Care Wave Foundation
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 |--------------------------------------------------------------------------
 */
 
-define('CWCP_VERSION', '2.1.0');
+define('CWCP_VERSION', '2.3.0');
 define('CWCP_FILE', __FILE__);
 define('CWCP_PATH', plugin_dir_path(__FILE__));
 define('CWCP_URL', plugin_dir_url(__FILE__));
@@ -53,6 +53,7 @@ $cwcp_modules = array(
     'dashboard.php',
     'forms.php',
     'emails.php',
+    'elementor.php',
 );
 
 foreach ($cwcp_modules as $cwcp_module) {
@@ -72,6 +73,7 @@ if (is_admin()) {
         'admin-candidates.php',
         'admin-submissions.php',
         'admin-settings.php',
+        'admin-setup.php',
     );
 
     foreach ($cwcp_admin_modules as $cwcp_admin_module) {

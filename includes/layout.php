@@ -36,7 +36,7 @@ function cwcp_portal_open($active = '', $title = '', $subtitle = '', $actions = 
 
     ob_start();
     ?>
-    <div class="cwcp-page cwcp-scope cwcp-portal alignwide">
+    <div class="cwcp-page cwcp-scope cwcp-portal">
         <div class="cwcp-container">
 
             <div class="cwcp-portal-grid">
@@ -134,7 +134,7 @@ function cwcp_public_open($title = '', $subtitle = '') {
 
     ob_start();
     ?>
-    <div class="cwcp-page cwcp-scope cwcp-public alignwide">
+    <div class="cwcp-page cwcp-scope cwcp-public">
         <div class="cwcp-container">
             <?php if ($title) : ?>
                 <div class="cwcp-page-header">

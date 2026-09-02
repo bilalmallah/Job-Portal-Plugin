@@ -30,6 +30,25 @@
     text-transform: none;
 
     word-break: normal;
+
+    /*
+     * Themes and page builders align portal screens by leaking float, margin
+     * and alignment rules onto whatever sits in the content area. Hello
+     * Elementor, for one, gives .alignwide a -80px inline margin, which drags
+     * a width:100% wrapper bodily to the left instead of widening it, so the
+     * portal centres itself rather than asking the theme to do it.
+     */
+
+    width: 100%;
+    max-width: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    float: none;
+    clear: both;
+
+    text-align: left;
 }
 
 :where(.cwcp-page, .cwcp-scope) *,
@@ -39,12 +58,18 @@
     box-sizing: border-box;
 }
 
-/* Block themes constrain every child of the content area to a narrow column. */
+/*
+ * Block themes constrain every child of the content area to a narrow column.
+ * Two classes deep, so this outranks the :where() wrapped layout rules the
+ * block editor prints for constrained containers.
+ */
 
-:where(.entry-content, .wp-block-post-content) > .cwcp-page,
-:where(.entry-content, .wp-block-post-content) > .cwcp-scope {
+.entry-content > .cwcp-page,
+.entry-content > .cwcp-scope,
+.wp-block-post-content > .cwcp-page,
+.wp-block-post-content > .cwcp-scope {
 
-    max-width: none;
+    max-width: 100%;
 
     margin-left: auto;
     margin-right: auto;

@@ -1,0 +1,75 @@
+/* =========================================================
+   CAREERHUB
+   ELEMENTOR INTEGRATION
+
+   A portal screen normally draws its own page chrome: a full width tinted
+   band, generous vertical padding and a 1200px centred column. Inside an
+   Elementor widget the container already owns all three, so the chrome would
+   double up. These rules stand it down and let the widget's own Layout
+   controls take over; every control in the panel outranks this file, because
+   Elementor prints control CSS after the theme and plugin stylesheets.
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE BAND
+   ========================================================= */
+
+.cwcp-elementor > .cwcp-page,
+.cwcp-elementor > .cwcp-scope {
+
+    min-height: 0;
+
+    padding: 0;
+
+    background: transparent;
+}
+
+
+/* =========================================================
+   CONTENT COLUMN
+   ========================================================= */
+
+.cwcp-elementor .cwcp-container {
+
+    max-width: 100%;
+
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Login, registration and password screens stay a readable column. */
+
+.cwcp-elementor .cwcp-container-narrow {
+
+    max-width: 560px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* =========================================================
+   SCREEN HEADING TOGGLE
+   ========================================================= */
+
+.cwcp-el-no-header > .cwcp-page > .cwcp-container > .cwcp-page-header,
+.cwcp-el-no-header .cwcp-portal-main > .cwcp-page-header,
+.cwcp-el-no-header .cwcp-auth-head {
+
+    display: none;
+}
+
+
+/* =========================================================
+   EDITOR PREVIEW
+
+   Elementor renders widgets into an iframe whose body has no theme content
+   width. Without this the portal grid collapses while it is being edited.
+   ========================================================= */
+
+.elementor-editor-active .cwcp-elementor,
+.elementor-editor-preview .cwcp-elementor {
+
+    width: 100%;
+}

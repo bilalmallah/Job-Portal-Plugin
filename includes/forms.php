@@ -763,62 +763,77 @@ function cwcp_render_form($type, $related_id = 0, $intro = '') {
 |--------------------------------------------------------------------------
 */
 
-function cwcp_volunteer_form_shortcode() {
+/**
+ * Shared body for the three public application forms. The title, subtitle and
+ * intro are overridable so the Elementor widgets (and any shortcode author)
+ * can reword a form without a second schema.
+ */
+function cwcp_render_form_screen($type, $defaults, $atts = array()) {
+
+    $atts = shortcode_atts(
+        array(
+            'title'    => $defaults['title'],
+            'subtitle' => $defaults['subtitle'],
+            'intro'    => $defaults['intro'],
+        ),
+        is_array($atts) ? $atts : array(),
+        'careerhub_' . $type . '_form'
+    );
 
     ob_start();
 
-    echo cwcp_public_open( // phpcs:ignore WordPress.Security.EscapeOutput
-        'Volunteer Registration',
-        'Join our volunteer roster and support communities across Pakistan.'
-    );
+    echo cwcp_public_open($atts['title'], $atts['subtitle']); // phpcs:ignore WordPress.Security.EscapeOutput
 
     echo '<div class="cwcp-card cwcp-pad">';
-    echo cwcp_render_form('volunteer', 0, 'Complete the form below to join our volunteer database.'); // phpcs:ignore WordPress.Security.EscapeOutput
+    echo cwcp_render_form($type, 0, $atts['intro']); // phpcs:ignore WordPress.Security.EscapeOutput
     echo '</div>';
 
     echo cwcp_public_close(); // phpcs:ignore WordPress.Security.EscapeOutput
 
     return ob_get_clean();
+}
+
+function cwcp_volunteer_form_shortcode($atts = array()) {
+
+    return cwcp_render_form_screen(
+        'volunteer',
+        array(
+            'title'    => 'Volunteer Registration',
+            'subtitle' => 'Join our volunteer roster and support communities across Pakistan.',
+            'intro'    => 'Complete the form below to join our volunteer database.',
+        ),
+        $atts
+    );
 }
 
 cwcp_add_shortcode('volunteer_form', 'cwcp_volunteer_form_shortcode');
 
-function cwcp_internship_form_shortcode() {
+function cwcp_internship_form_shortcode($atts = array()) {
 
-    ob_start();
-
-    echo cwcp_public_open( // phpcs:ignore WordPress.Security.EscapeOutput
-        'Internship Application',
-        'Learn with our programme teams and gain field experience.'
+    return cwcp_render_form_screen(
+        'internship',
+        array(
+            'title'    => 'Internship Application',
+            'subtitle' => 'Learn with our programme teams and gain field experience.',
+            'intro'    => 'Tell us about your studies and what you would like to learn.',
+        ),
+        $atts
     );
-
-    echo '<div class="cwcp-card cwcp-pad">';
-    echo cwcp_render_form('internship', 0, 'Tell us about your studies and what you would like to learn.'); // phpcs:ignore WordPress.Security.EscapeOutput
-    echo '</div>';
-
-    echo cwcp_public_close(); // phpcs:ignore WordPress.Security.EscapeOutput
-
-    return ob_get_clean();
 }
 
 cwcp_add_shortcode('internship_form', 'cwcp_internship_form_shortcode');
 
-function cwcp_field_facilitator_form_shortcode() {
+function cwcp_field_facilitator_form_shortcode($atts = array()) {
 
-    ob_start();
-
-    echo cwcp_public_open( // phpcs:ignore WordPress.Security.EscapeOutput
-        'Field Facilitator Application',
-        'Work with us in the field on health, education and relief projects.'
+    return cwcp_render_form_screen(
+        'field_facilitator',
+        array(
+            'title'    => 'Field Facilitator Application',
+            'subtitle' => 'Work with us in the field on health, education and relief projects.',
+            'intro'    => 'Field facilitators are hired district wise. Please give accurate location details.',
+        ),
+        $atts
     );
-
-    echo '<div class="cwcp-card cwcp-pad">';
-    echo cwcp_render_form('field_facilitator', 0, 'Field facilitators are hired district wise. Please give accurate location details.'); // phpcs:ignore WordPress.Security.EscapeOutput
-    echo '</div>';
-
-    echo cwcp_public_close(); // phpcs:ignore WordPress.Security.EscapeOutput
-
-    return ob_get_clean();
 }
 
 cwcp_add_shortcode('field_facilitator_form', 'cwcp_field_facilitator_form_shortcode');

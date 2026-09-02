@@ -19,7 +19,7 @@ function cwcp_admin_menu() {
         $cap,
         'cwcp-overview',
         'cwcp_render_overview_page',
-        'dashicons-groups',
+        cwcp_brand_menu_icon(),
         26
     );
 
@@ -80,6 +80,15 @@ function cwcp_admin_menu() {
         $cap,
         'cwcp-settings',
         'cwcp_render_settings_page'
+    );
+
+    add_submenu_page(
+        'cwcp-overview',
+        'CareerHub Setup',
+        'Setup Wizard',
+        $cap,
+        'cwcp-setup',
+        'cwcp_render_setup_page'
     );
 }
 

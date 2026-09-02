@@ -662,3 +662,60 @@ function cwcp_select_options($options, $selected = '', $placeholder = '') {
 
     return $html;
 }
+
+
+/*
+|--------------------------------------------------------------------------
+| Branding
+|--------------------------------------------------------------------------
+|
+| The two logos are optional files. Every caller degrades to text or a
+| dashicon when they are absent, so the plugin never ships a broken image.
+|
+*/
+
+function cwcp_brand_logo_file($name) {
+
+    $relative = 'assets/images/' . $name;
+
+    return file_exists(CWCP_PATH . $relative) ? CWCP_URL . $relative : '';
+}
+
+/**
+ * The product mark shown on the setup wizard, the admin menu and the
+ * overview screen.
+ */
+function cwcp_brand_logo_url() {
+
+    return cwcp_brand_logo_file('careerhub-logo.png');
+}
+
+/**
+ * The maker's mark, shown once in the setup wizard footer.
+ */
+function cwcp_brand_author_logo_url() {
+
+    return cwcp_brand_logo_file('bm-infinity-logo.png');
+}
+
+function cwcp_brand_logo_img($class = 'cwcp-brand-logo', $alt = 'CareerHub') {
+
+    $url = cwcp_brand_logo_url();
+
+    if (!$url) {
+        return '';
+    }
+
+    return '<img class="' . esc_attr($class) . '" src="' . esc_url($url) . '" alt="' . esc_attr($alt) . '" />';
+}
+
+/**
+ * Data URI for the admin menu icon, so WordPress does not have to fetch it
+ * on every page load. Falls back to a dashicon when the file is missing.
+ */
+function cwcp_brand_menu_icon() {
+
+    $url = cwcp_brand_logo_url();
+
+    return $url ? $url : 'dashicons-groups';
+}

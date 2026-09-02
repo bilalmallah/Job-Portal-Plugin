@@ -16,13 +16,53 @@ Activation creates automatically:
 
 * the **Candidate** user role,
 * six database tables (`wp_cwcp_*`),
-* every portal page with its shortcode already inside,
 * starter job categories and job types,
 * a protected uploads folder `wp-content/uploads/carewave-documents`.
+
+It then opens the **setup wizard**, which decides the rest.
 
 Add the pages you want visitors to see (Jobs, Login, Registration, Volunteer
 Form, Internship Form, Field Facilitator Form, Tenders) to your menu.
 The full list with links is in *CareerHub → Overview*.
+
+---
+
+## Setup wizard
+
+On a first activation the plugin opens *CareerHub → Setup Wizard* instead of
+creating pages unasked. It is two questions:
+
+**1. How should the portal pages be built?**
+
+| Choice | What happens |
+| --- | --- |
+| **Create everything for me** | Inserts all 17 pages now, each holding one shortcode. Menu links, login redirects and emails point at them immediately. |
+| **I will build them in Elementor** | Creates nothing. You add each screen yourself with the CareerHub widgets. The wizard's last step lists the slug each screen must live at. |
+
+The answer is stored as `cwcp_page_mode`, and it sticks: a manual site is never
+topped up with shortcode pages behind your back, on upgrade or re-activation.
+
+**2. Which theme?**
+
+Five presets (Classic Blue, Teal, Forest Green, Maroon, Charcoal), an optional
+custom brand colour that overrides the preset, and a corner style. This writes
+the same `cwcp_settings` the *Settings* screen edits, so nothing is duplicated
+and every value stays editable afterwards.
+
+Re-run it any time from *CareerHub → Setup Wizard*. Re-activating an existing
+install does **not** reopen it, and does not touch pages you already have.
+
+### Logos
+
+Two optional brand files live in `assets/images/`:
+
+| File | Shows in |
+| --- | --- |
+| `careerhub-logo.png` | Setup wizard header, WordPress admin menu icon |
+| `bm-infinity-logo.png` | Setup wizard footer |
+
+Both degrade gracefully - a missing file falls back to a dashicon or is simply
+omitted, never a broken image. See `assets/images/README.md`.
 
 ---
 
@@ -145,6 +185,39 @@ to the portal login and registration pages. Switch the option off to leave
 Single job pages are rendered by your theme; the job summary and the apply box
 are appended to the content automatically.
 
+Every shortcode also answers to a `careerhub_` prefix (`[careerhub_login]`);
+the `carewave_` names above are kept so existing pages keep working.
+
+---
+
+## Elementor
+
+With Elementor active the plugin adds a **CareerHub** section to the widget
+panel holding one widget per screen - the three application forms, the job
+listing, tenders, the account screens and every candidate portal screen.
+
+Each widget renders through the same callback as its shortcode, so the two can
+never drift apart, and adds these panel controls:
+
+| Tab | Controls |
+| --- | --- |
+| Content | Show or hide the screen heading. The three application forms also take a custom title, subtitle and intro. |
+| Layout | Content width, alignment, padding, screen background |
+| Colors | Brand, brand hover, brand tint, body and muted text, borders, base typography, success / error / warning |
+| Screen heading | Alignment, title and subtitle colour and typography, spacing |
+| Cards | Background, border, radius, padding, box shadow |
+| Form fields | Label and input typography, text, background, border and focus colours, radius, height, padding, gap, column count |
+| Buttons | Typography, normal and hover colours, padding, radius, full width |
+
+The colour controls write into the same CSS custom properties the portal is
+built from (`--cwcp-primary` and friends), set on the widget wrapper. So an
+Elementor override is scoped to that one widget, and everything else on the
+site keeps the palette from *Portal > Settings*.
+
+Inside a widget the screen drops its own page chrome - the tinted full width
+band, the vertical padding and the 1200px column - because the Elementor
+container already provides all three. The Layout tab is where you put it back.
+
 ---
 
 ## Working with your theme
@@ -163,8 +236,13 @@ precautions keep the two from fighting:
   specificity match.
 * **Layout classes never go on `<body>`.** Single job and tender pages get an
   identifying `cwcp-single-job-page` body class only.
-* Wrappers carry `alignwide`, so block themes such as Twenty Twenty-Five do not
-  squeeze the portal into the narrow content column.
+* **Wrappers centre themselves.** They used to carry `alignwide` to escape the
+  narrow content column of block themes, but that class means whatever the
+  active theme decides it means - Hello Elementor, for one, gives it
+  `margin-inline: -80px`, which drags a `width: 100%` wrapper 80px to the left
+  instead of widening it, and the whole portal looks knocked off centre. The
+  wrappers now set their own `width`, `max-width`, `margin` and `float`, and a
+  two class rule handles the constrained containers of block themes.
 
 Single job pages are rendered by your theme; the plugin appends a two column
 layout - description on the left, job summary and the apply panel in a sticky
